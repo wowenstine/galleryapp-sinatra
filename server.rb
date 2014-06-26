@@ -1,21 +1,36 @@
 require 'sinatra'
-GALLERIES = {
-  "cats" =>  ["fancat.jpg", "fatcat.jpg", "windowcat.jpg"],
-  "dogs" => ["doge1.jpg", "doge2.jpg", "such-logo.gif"]
-}
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(
+  adapter: "postgresql",
+  database: "pixtr"
+)
+
+class Gallery < ActiveRecord::Base
+  has_many :images
+end
+
+class Image < ActiveRecord::Base
+end
 
 get "/" do
-  @galleries = GALLERIES.keys
+  @galleries = Gallery.all
   erb :index, :layout => :structure
 end
 
+get "/galleries/new" do
+  erb :new_gallery
+end
+
+post "/galleries" do 
+  gallery = Gallery.new(params[:gallery])
+  gallery.save
+  redirect to('/')
+end
 
 get "/:name" do
   @name = params[:name]
-  @filenames = GALLERIES[@name]
-  if GALLERIES.has_key?(@name)
+  @gallery = Gallery.find_by(name: @name)
+  @images = @gallery.images
   erb :gallery, :layout => :structure
-  else
-    erb :error, :layout => :structure
-  end
 end
