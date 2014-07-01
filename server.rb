@@ -18,19 +18,32 @@ get "/" do
   erb :index, :layout => :structure
 end
 
+#creates array  [name description], 
 get "/galleries/new" do
-  erb :new_gallery
+     erb :new_gallery
 end
 
-post "/galleries" do 
-  gallery = Gallery.new(params[:gallery])
-  gallery.save
-  redirect to('/')
+#then pushes array in Gallery with class to yild new row of data galleries
+post "/galleries/gallery" do 
+  gallery = Gallery.create(params[gallery])
+  redirect to('/galleries/#{gallery}')
 end
 
-get "/:name" do
-  @name = params[:name]
-  @gallery = Gallery.find_by(name: @name)
-  @images = @gallery.images
-  erb :gallery, :layout => :structure
+
+get "/galleries/:gallery/images/new" do
+  @id = Gallery.find_by(params[:gallery])
+  erb :new_images
 end
+
+
+post "/galleries/gallery/:images" do
+  puts gallery[name] 
+end
+
+
+  get "/galleries/:name"  do
+    @name = params[:name]
+    @gallery = Gallery.find_by(name: @name)
+    @images = @gallery.images
+    erb :gallery, :layout => :structure
+  end

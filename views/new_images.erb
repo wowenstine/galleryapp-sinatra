@@ -1,0 +1,9 @@
+<h1> So you want more <%=#{gallery}%> ?</h1>
+
+<h1>Add New Image URL</h1>
+<form action="galleries/#{@id}/images" method="POST">
+  <h3>URL</h3>
+  <input type="hidden" name="_method" value="put">
+  <input type="text" name="images[url]">
+  <input type="submit" value="Add new photo">
+</form>

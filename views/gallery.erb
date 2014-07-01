@@ -1,5 +1,6 @@
   <h2 class="text-center">  <%=@name%> </h2>
 <% @images.each do |i| %>
-  <img src="<%= i.url %>" class="img-responsive inline-block" />
+  <img src="<%=i.url%>" class="img-responsive inline-block" />
   <hr>
   <% end %>
+  

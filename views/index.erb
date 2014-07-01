@@ -1,6 +1,9 @@
 <h2> Galleries </h2>
-  <% @galleries.each do |gallery| %>
-    <a href="<%=gallery.name%>"> <%=gallery.name.upcase%> </a>
-    <br>
-  <% end %>
-
+<ul>  
+<% @galleries.each do |gallery| %>
+  <li>
+  <a href="/galleries/<%=gallery.name %>"> <%=gallery.name %> </a>
+  </li>
+  <br>
+<% end %>
+</ul> 
